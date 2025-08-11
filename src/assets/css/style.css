@@ -1,0 +1,45 @@
+/* Body text - clean & readable */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+  color: #222;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Headings and buttons - stylish & bold */
+h1, h2, h3, button {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Code or monospace text */
+code, pre, .mono-text {
+  font-family: 'Roboto Mono', monospace;
+  background-color: #eee;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Task item style */
+.task-item {
+  background: white;
+  padding: 12px 18px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+@import "sidebar.css";
+@import "progress.css";
+@import "dropdownmenu.css"
