@@ -1,0 +1,47 @@
+.side-nav {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 250px;
+  height: calc(100% - 56px);
+  background-color: #343a40;
+  overflow-y: auto;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  pointer-events: auto;
+  padding: 20px;
+}
+
+.side-nav-close {
+  left: -250px;
+  pointer-events: none;
+}
+
+.side-nav-open {
+  left: 0;
+  pointer-events: auto;
+}
+
+.side-nav .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.side-nav .nav-link:hover,
+.side-nav .side-bar-item-active {
+  background-color: #495057;
+  border-radius: 4px;
+}
+
+.content {
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+}
+
+.content-expand {
+  margin-left: 250px;
+}

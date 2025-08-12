@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import MasterLayout from '../components/masterLayout/MasterLayout';
 
 const CancelPage = () => {
-    return (
-        <div>
-            CancelPage
-        </div>
-    );
+  return (
+    <Fragment>
+      <MasterLayout>
+        <h1>Cancel Page</h1>
+      </MasterLayout>
+    </Fragment>
+  );
 };
 
 export default CancelPage;

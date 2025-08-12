@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import MasterLayout from '../components/masterLayout/MasterLayout';
 
 const ProfilePage = () => {
-    return (
-        <div>
-            Profile Page
-        </div>
-    );
+  return (
+    <Fragment>
+      <MasterLayout>
+        <h1>Profile Page</h1>
+      </MasterLayout>
+    </Fragment>
+  );
 };
 
 export default ProfilePage;

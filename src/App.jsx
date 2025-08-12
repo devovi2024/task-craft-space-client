@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+
 import DashboardPage from './pages/DashboardPage';
 import CreatePage from './pages/CreatePage';
 import NewPage from './pages/NewPage';
@@ -17,7 +18,9 @@ const App = () => {
     <Fragment>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/create" element={<CreatePage />} />
           <Route path="/new" element={<NewPage />} />
           <Route path="/progress" element={<ProgressPage />} />
@@ -26,8 +29,9 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/404" element={<NotFoundPage />} />
           <Route path="/forget-pass" element={<ForgetpassPage />} />
+
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </Fragment>

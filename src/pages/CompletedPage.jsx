@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import MasterLayout from '../components/masterLayout/MasterLayout';
+
 
 const CompletedPage = () => {
     return (
-        <div>
-            Completed Page
-        </div>
+        <Fragment>
+            <MasterLayout>
+                <h1>Completed Page</h1>
+            </MasterLayout>
+        </Fragment>
     );
 };
 

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import MasterLayout from '../components/masterLayout/MasterLayout';
 
 const DashboardPage = () => {
-    return (
-        <div>
-            Dashboard
-        </div>
-    );
+  return (
+    <Fragment>
+      <MasterLayout>
+        <h1>Dashboard</h1>
+      </MasterLayout>
+    </Fragment>
+  );
 };
 
 export default DashboardPage;
