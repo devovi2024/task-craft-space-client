@@ -1,0 +1,30 @@
+.registration-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa; 
+}
+
+.registration-card {
+  width: 400px;
+  padding: 2rem;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+  border-radius: 0.5rem;
+}
+
+.registration-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.btn-next {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.already-account {
+  text-align: center;
+  margin-top: 0.5rem;
+}
