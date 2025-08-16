@@ -1,30 +1,15 @@
-import React, { Fragment } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../assets/css/fullscreen.css';
 import { useSelector } from 'react-redux';
+import '../../assets/css/FullscreenLoader.css';
 
 const FullscreenLoader = () => {
-  const isLoading = useSelector((state) => state.loader.isLoading);
-
-  if (!isLoading) return null;
+  const loader = useSelector((state) => state.settings.loader);
 
   return (
-    <Fragment>
-      <div className="loading-overlay d-flex justify-content-center align-items-center">
-        <div style={{ width: '300px' }}>
-          <div className="progress" style={{ height: '8px', borderRadius: '20px' }}>
-            <div
-              className="progress-bar progress-bar-striped progress-bar-animated bg-primary"
-              role="progressbar"
-              style={{ width: '100%' }}
-            ></div>
-          </div>
-          <p className="text-white mt-3 text-center fw-bold">
-            Loading, please wait...
-          </p>
-        </div>
+    <div className={`LoadingOverlay ${loader ? 'active' : ''}`}>
+      <div className='Line-Progress'>
+        <div className='indeterminate'></div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

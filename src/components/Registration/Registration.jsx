@@ -2,8 +2,9 @@ import React, { useRef } from "react";
 import { FaUser, FaEnvelope, FaPhone, FaLock } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../assets/css/Registration.css";
-import formHelperInstance from "../../helper/FormHelper";
-import { RegistrationReq } from "../../APIRequest/api"; 
+import FormHelper from "../../helper/FormHelper";
+import { RegistrationReq } from "../../APIRequest/api";
+import { useNavigate, Link } from "react-router-dom"; 
 
 const Registration = () => {
   const refs = {
@@ -13,6 +14,8 @@ const Registration = () => {
     mobile: useRef(),
     password: useRef(),
   };
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,15 +29,13 @@ const Registration = () => {
       photo: "",
     };
 
-    // Simple validations
-    if (!data.firstName) return formHelperInstance.ErrorToast("First Name is required");
-    if (!data.lastName) return formHelperInstance.ErrorToast("Last Name is required");
-    if (!formHelperInstance.isEmail(data.email)) return formHelperInstance.ErrorToast("Invalid Email");
-    if (!formHelperInstance.isMobile(data.mobile)) return formHelperInstance.ErrorToast("Invalid Mobile");
-    if (!data.password) return formHelperInstance.ErrorToast("Password is required");
-    if (data.password.length < 6) return formHelperInstance.ErrorToast("Password must be at least 6 characters");
+    if (FormHelper.isEmpty(data.firstName)) return FormHelper.ErrorToast("First Name is required");
+    if (FormHelper.isEmpty(data.lastName)) return FormHelper.ErrorToast("Last Name is required");
+    if (!FormHelper.isEmail(data.email)) return FormHelper.ErrorToast("Invalid Email");
+    if (!FormHelper.isMobile(data.mobile)) return FormHelper.ErrorToast("Invalid Mobile");
+    if (FormHelper.isEmpty(data.password)) return FormHelper.ErrorToast("Password is required");
+    if (data.password.length < 6) return FormHelper.ErrorToast("Password must be at least 6 characters");
 
-    // Call API
     const success = await RegistrationReq(
       data.email,
       data.firstName,
@@ -45,8 +46,10 @@ const Registration = () => {
     );
 
     if (success) {
-      formHelperInstance.SuccessToast(`Welcome ${data.firstName} ${data.lastName}!`);
-      console.log("Registered User:", data);
+  
+      e.target.reset();
+
+      navigate("/login");
     }
   };
 
@@ -75,9 +78,10 @@ const Registration = () => {
             <span className="input-group-text"><FaLock /></span>
             <input type="password" placeholder="Password" ref={refs.password} className="form-control" />
           </div>
-          <button type="submit" className="btn btn-primary btn-next">Next</button>
-          <p className="already-account">
-            Already have an account? <a href="/login" className="text-primary">Sign In</a>
+          <button type="submit" className="btn btn-primary btn-next w-100">Register</button>
+          <p className="already-account mt-2">
+            Already have an account?{" "}
+            <Link to="/login" className="text-primary">Sign In</Link> {/* ✅ React Router Link */}
           </p>
         </form>
       </div>

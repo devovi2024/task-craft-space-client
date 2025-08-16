@@ -1,39 +1,52 @@
-import React, { Fragment } from 'react';
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import React, { Fragment } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
-import DashboardPage from './pages/DashboardPage';
-import CreatePage from './pages/CreatePage';
-import NewPage from './pages/NewPage';
-import ProgressPage from './pages/ProgressPage';
-import CompletedPage from './pages/CompletedPage';
-import CancelPage from './pages/CancelPage';
-import ProfilePage from './pages/ProfilePage';
-import LoginPage from './pages/LoginPage';
-import RegistrationPage from './pages/RegistrationPage';
-import NotFoundPage from './pages/NotFoundPage';
-import ForgetpassPage from './pages/ForgetpassPage';
+import Dashboard from "./pages/DashboardPage";
+import CreateTask from "./pages/CreatePage";
+import NewTasks from "./pages/NewPage";
+import ProgressTasks from "./pages/ProgressPage";
+import CompletedTasks from "./pages/CompletedPage";
+import CancelledTasks from "./pages/CancelPage";
+import UserProfile from "./pages/ProfilePage";
+import UserLogin from "./pages/LoginPage";
+import UserRegistration from "./pages/RegistrationPage";
+import NotFound from "./pages/NotFoundPage";
+import ForgotPassword from "./pages/ForgetpassPage";
 
 const App = () => {
   return (
     <Fragment>
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/create" element={<CreatePage />} />
-          <Route path="/new" element={<NewPage />} />
-          <Route path="/progress" element={<ProgressPage />} />
-          <Route path="/completed" element={<CompletedPage />} />
-          <Route path="/cancel" element={<CancelPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/forget-pass" element={<ForgetpassPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/create" element={<CreateTask />} />
+          <Route path="/new" element={<NewTasks />} />
+          <Route path="/progress" element={<ProgressTasks />} />
+          <Route path="/completed" element={<CompletedTasks />} />
+          <Route path="/cancel" element={<CancelledTasks />} />
+          <Route path="/profile" element={<UserProfile />} />
 
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/login" element={<UserLogin />} />
+          <Route path="/register" element={<UserRegistration />} />
+          <Route path="/forget-pass" element={<ForgotPassword />} />
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
+
+        <Toaster
+          position="center"
+          toastOptions={{
+            style: {
+              borderRadius: "8px",
+              background: "#333",
+              color: "#fff",
+            },
+          }}
+        />
+      </Router>
     </Fragment>
   );
 };

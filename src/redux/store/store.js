@@ -1,10 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import loaderReducer from "../state-slice/loaderSlice";
+import settingsReducer from "../state-slice/settings.slice";
 
-// Store configuration
 export const store = configureStore({
   reducer: {
-    loader: loaderReducer, 
+    settings: settingsReducer
   },
-  devTools: process.env.NODE_ENV !== "production", 
 });

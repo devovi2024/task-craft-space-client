@@ -1,0 +1,36 @@
+.LoadingOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  z-index: 9999;
+}
+
+.LoadingOverlay.active {
+  display: block;
+}
+
+.Line-Progress {
+  width: 100%;
+  height: 4px;
+  background: #eee;
+  overflow: hidden;
+  position: relative;
+}
+
+.Line-Progress .indeterminate {
+  background: #0d6efd;
+  width: 0;
+  height: 100%;
+  position: absolute;
+  animation: indeterminate 1.5s infinite;
+}
+
+@keyframes indeterminate {
+  0% { left: -100%; width: 100%; }
+  50% { left: 100%; width: 10%; }
+  100% { left: 100%; width: 10%; }
+}
