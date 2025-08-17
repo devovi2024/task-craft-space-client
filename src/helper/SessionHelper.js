@@ -1,36 +1,30 @@
 class SessionHelper {
-    // ---------- Token ----------
-    setToken(token) {
-        localStorage.setItem("token", token);
-    }
+  // ---------- Token ----------
+  setToken(token) {
+    localStorage.setItem("token", token);
+  }
 
-    getToken() {
-        return localStorage.getItem("token");
-    }
+  getToken() {
+    return localStorage.getItem("token");
+  }
 
-    removeToken() {
-        localStorage.removeItem("token");
-    }
+  removeToken() {
+    localStorage.removeItem("token");
+  }
 
-    // ---------- User Details ----------
-    setUserDetails(userDetails) {
-        localStorage.setItem("user", JSON.stringify(userDetails));
-    }
+  // ---------- User ----------
+  setUserDetails(userDetails) {
+    localStorage.setItem("user", JSON.stringify(userDetails));
+  }
 
-    getUserDetails() {
-        const user = localStorage.getItem("user");
-        return user ? JSON.parse(user) : null;
-    }
+  getUserDetails() {
+    const user = localStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
+  }
 
-    removeUserDetails() {
-        localStorage.removeItem("user");
-    }
-
-    // ---------- Logout ----------
-    logout() {
-        this.removeToken();
-        this.removeUserDetails();
-    }
+  removeUserDetails() {
+    localStorage.removeItem("user");
+  }
 }
 
 const sessionHelper = new SessionHelper();

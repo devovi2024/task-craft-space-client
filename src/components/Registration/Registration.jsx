@@ -13,6 +13,7 @@ const Registration = () => {
     email: useRef(),
     mobile: useRef(),
     password: useRef(),
+
   };
 
   const navigate = useNavigate();
@@ -81,7 +82,7 @@ const Registration = () => {
           <button type="submit" className="btn btn-primary btn-next w-100">Register</button>
           <p className="already-account mt-2">
             Already have an account?{" "}
-            <Link to="/login" className="text-primary">Sign In</Link> {/* ✅ React Router Link */}
+            <Link to="/login" className="text-primary">Sign In</Link>
           </p>
         </form>
       </div>
