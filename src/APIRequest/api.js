@@ -11,41 +11,24 @@ const BaseURL = "http://localhost:5000/v1";
 export async function RegistrationReq(email, firstName, lastName, mobile, password, photo = "") {
   store.dispatch(ShowLoader());
   const URL = `${BaseURL}/registration`;
-  const PostBody = { email, firstName, lastName, mobile, password, photo };
-  const loadingToastId = toast.loading("Processing your registration...");
+  const loadingToastId = toast.loading("Processing registration...");
 
   try {
-    const res = await axios.post(URL, PostBody);
-    toast.dismiss(loadingToastId);
+    const res = await axios.post(URL, { email, firstName, lastName, mobile, password, photo });
     store.dispatch(HideLoader());
+    toast.dismiss(loadingToastId);
 
-    if (res.status === 200) {
-      const data = res.data;
-      console.log("Registration Response:", data);
-
-      if (data.status === "error") {
-        if (data.keyPattern?.email) FormHelper.ErrorToast("Email already exists!");
-        else if (data.keyPattern?.mobile) FormHelper.ErrorToast("Mobile number already exists!");
-        else FormHelper.ErrorToast(data.data || "Something went wrong");
-        return false;
-      }
-
-      if (data.status === "success") {
-        FormHelper.SuccessToast("Registration successful");
-        return true;
-      }
-
-      FormHelper.ErrorToast("Unexpected server response");
-      return false;
+    if (res.data.status === "success") {
+      FormHelper.SuccessToast("Registration successful");
+      return true;
     } else {
-      FormHelper.ErrorToast("Server returned status " + res.status);
+      FormHelper.ErrorToast(res.data.data || "Registration failed");
       return false;
     }
   } catch (err) {
-    toast.dismiss(loadingToastId);
     store.dispatch(HideLoader());
-    FormHelper.ErrorToast(err.response?.data?.data || "Server error. Please try again.");
-    console.error("Registration Error:", err.response || err);
+    toast.dismiss(loadingToastId);
+    FormHelper.ErrorToast(err.response?.data?.data || "Server error");
     return false;
   }
 }
@@ -54,45 +37,64 @@ export async function RegistrationReq(email, firstName, lastName, mobile, passwo
 export async function LoginReq(email, password) {
   store.dispatch(ShowLoader());
   const URL = `${BaseURL}/login`;
-  const PostBody = { email, password };
   const loadingToastId = toast.loading("Checking credentials...");
 
   try {
-    const res = await axios.post(URL, PostBody);
-    toast.dismiss(loadingToastId);
+    const res = await axios.post(URL, { email, password });
     store.dispatch(HideLoader());
+    toast.dismiss(loadingToastId);
 
-    if (res.status === 200) {
-      const data = res.data;
-      console.log("Login Response:", data);
-
-      if (data.status === "success") {
-        const token = data.data?.token || data.token;
-        const user = data.data?.user || data.user;
-
-        if (!token || !user) {
-          FormHelper.ErrorToast("Invalid server response (missing token/user)");
-          return false;
-        }
-
-        sessionHelper.setToken(token);
-        sessionHelper.setUserDetails(user);
-
-        FormHelper.SuccessToast("Login successful");
-        return true;
-      } else {
-        FormHelper.ErrorToast(data.data || "Invalid login credentials");
-        return false;
-      }
+    if (res.data.status === "success") {
+      const token = res.data.data.token;
+      const user = res.data.data.user;
+      sessionHelper.setToken(token);
+      sessionHelper.setUserDetails(user);
+      FormHelper.SuccessToast("Login successful");
+      return true;
     } else {
-      FormHelper.ErrorToast("Server returned status " + res.status);
+      FormHelper.ErrorToast(res.data.data || "Invalid credentials");
       return false;
     }
   } catch (err) {
-    toast.dismiss(loadingToastId);
     store.dispatch(HideLoader());
-    FormHelper.ErrorToast(err.response?.data?.data || "Login failed. Please try again.");
-    console.error("Login Error:", err.response || err);
+    toast.dismiss(loadingToastId);
+    FormHelper.ErrorToast(err.response?.data?.data || "Server error");
+    return false;
+  }
+}
+
+// ------------------ Create Task ------------------
+
+export async function NewTaskReq(title, description) {
+  const token = sessionHelper.getToken();
+  if (!token) {
+    FormHelper.ErrorToast("You are not logged in");
+    return false;
+  }
+
+  store.dispatch(ShowLoader());
+  const loadingToastId = toast.loading("Creating task...");
+
+  try {
+    const res = await axios.post(
+      `${BaseURL}/create-task`,
+      { title, description, status: "new" },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    store.dispatch(HideLoader());
+    toast.dismiss(loadingToastId);
+
+    if (res.data.status === "success") {
+      FormHelper.SuccessToast("Task created successfully");
+      return true;
+    } else {
+      FormHelper.ErrorToast(res.data.message || "Failed to create task");
+      return false;
+    }
+  } catch (err) {
+    store.dispatch(HideLoader());
+    toast.dismiss(loadingToastId);
+    FormHelper.ErrorToast(err.response?.data?.message || "Server error");
     return false;
   }
 }
